@@ -1,5 +1,7 @@
 ---
-title: Introduction
+title: React Native Places Autocomplete
+description: A provider-agnostic React Native autocomplete component for searching addresses and places. Supports Google Places, OpenStreetMap, Mapbox, and more.
+keywords: [react native, autocomplete, places, google places, openstreetmap, mapbox, geocoding, location search]
 slug: /
 ---
 

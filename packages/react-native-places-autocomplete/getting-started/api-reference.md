@@ -1,5 +1,7 @@
 ---
 title: API Reference
+description: Complete API documentation for React Native Places Autocomplete. Learn about component props, provider options, styling, and TypeScript interfaces.
+keywords: [react native, places autocomplete, api reference, props, typescript, providers, geocoding]
 ---
 
 # API Reference

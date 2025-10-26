@@ -1,5 +1,7 @@
 ---
 title: Basic Usage
+description: Get started with React Native Places Autocomplete with basic examples and use cases. Learn how to implement location search and handle results.
+keywords: [react native, places autocomplete, usage, examples, location search, geocoding, autocomplete]
 ---
 
 # Basic Usage

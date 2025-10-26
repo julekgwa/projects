@@ -1,5 +1,7 @@
 ---
 title: Installation
+description: Learn how to install and set up React Native Places Autocomplete in your project. Simple installation guide with npm, yarn, and additional configuration options.
+keywords: [react native, places autocomplete, installation, setup, npm, yarn, react-native-svg]
 ---
 
 # Installation

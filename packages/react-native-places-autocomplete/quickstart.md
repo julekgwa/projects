@@ -1,5 +1,7 @@
 ---
 title: Quickstart
+description: Quick guide to get started with React Native Places Autocomplete. Learn how to implement location search in minutes with multiple provider support.
+keywords: [react native, places autocomplete, quickstart, tutorial, location search, google places, mapbox, openstreetmap]
 ---
 
 # Quick Start
