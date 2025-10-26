@@ -1,0 +1,142 @@
+---
+title: Basic Usage
+---
+
+# Basic Usage
+
+## Simple Example
+
+```tsx
+import React from 'react';
+import { View } from 'react-native';
+import { PaymentIcon } from 'react-native-payment-card-icons';
+
+export default function App() {
+  return (
+    <View>
+      <PaymentIcon type="visa" />
+    </View>
+  );
+}
+```
+
+## With Custom Styling
+
+```tsx
+import React from 'react';
+import { View } from 'react-native';
+import { PaymentIcon } from 'react-native-payment-card-icons';
+
+export default function StyledIcons() {
+  return (
+    <View>
+      {/* Custom size */}
+      <PaymentIcon
+        type="mastercard"
+        width={60}
+        height={40}
+      />
+
+      {/* Custom variant */}
+      <PaymentIcon
+        type="amex"
+        variant="flatRounded"
+        width={60}
+        height={40}
+      />
+
+      {/* Monochrome with custom color */}
+      <PaymentIcon
+        type="discover"
+        variant="mono"
+        width={60}
+        height={40}
+        fill="#007bff"
+      />
+    </View>
+  );
+}
+```
+
+## Using Individual Icons
+
+You can also import specific icons directly:
+
+```tsx
+import React from 'react';
+import { View } from 'react-native';
+import {
+  VisaFlat,
+  MastercardLogo,
+  AmexMono
+} from 'react-native-payment-card-icons';
+
+export default function DirectImports() {
+  return (
+    <View>
+      <VisaFlat width={60} height={40} />
+      <MastercardLogo width={60} height={40} />
+      <AmexMono width={60} height={40} fill="#333" />
+    </View>
+  );
+}
+```
+
+## In a Payment Form
+
+```tsx
+import React, { useState } from 'react';
+import { View, TextInput, StyleSheet } from 'react-native';
+import { PaymentIcon } from 'react-native-payment-card-icons';
+
+// Simple card type detection
+const detectCardType = (number: string) => {
+  if (number.startsWith('4')) return 'visa';
+  if (number.startsWith('5')) return 'mastercard';
+  if (number.startsWith('3')) return 'amex';
+  return 'generic-card';
+};
+
+export default function PaymentForm() {
+  const [cardNumber, setCardNumber] = useState('');
+  const cardType = detectCardType(cardNumber);
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Card Number"
+          value={cardNumber}
+          onChangeText={setCardNumber}
+          keyboardType="numeric"
+        />
+        <PaymentIcon
+          type={cardType}
+          variant="flat"
+          width={40}
+          height={25}
+        />
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    paddingHorizontal: 15,
+  },
+  input: {
+    flex: 1,
+    height: 50,
+    fontSize: 16,
+  },
+});

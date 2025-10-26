@@ -1,0 +1,84 @@
+---
+slug: /
+title: Introduction
+---
+
+# React Native Payment Card Icons
+
+A collection of high-quality, customizable payment card brand icons (Visa, Mastercard, Maestro, Amex, and more) as React Native SVG components, fully compatible with React Native, Expo, and React Native Web for seamless cross-platform use.
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/react-native-payment-card-icons">
+    <img src="https://img.shields.io/npm/v/react-native-payment-card-icons.svg" alt="npm version"/>
+  </a>
+  <a href="https://www.npmjs.com/package/react-native-payment-card-icons">
+    <img src="https://img.shields.io/npm/dm/react-native-payment-card-icons.svg" alt="npm downloads"/>
+  </a>
+  <a href="https://github.com/julekgwa/react-native-payment-card-icons/blob/main/LICENSE">
+    <img src="https://img.shields.io/npm/l/react-native-payment-card-icons.svg" alt="license"/>
+  </a>
+  <a href="https://github.com/julekgwa/react-native-payment-card-icons">
+    <img src="https://img.shields.io/github/stars/julekgwa/react-native-payment-card-icons.svg?style=social" alt="stars"/>
+  </a>
+</p>
+
+## Features
+
+- 🎨 **Multiple styles**: flat, flatRounded, logo, logoBorder, mono, monoOutline
+- 💳 **Comprehensive coverage**: Supports 17+ payment providers
+- 📱 **Cross-platform**: Works with React Native, Expo, and React Native Web
+- 🔧 **Fully customizable**: Size, color, and styling options
+- 🎯 **TypeScript support**: Complete type definitions included
+- 📦 **Zero dependencies**: Only requires `react-native-svg`
+
+## Quick Start
+
+```sh
+npm install react-native-payment-card-icons
+# or
+yarn add react-native-payment-card-icons
+# or
+bun add react-native-payment-card-icons
+```
+
+### Basic Usage
+
+```tsx
+import React from 'react';
+import { View } from 'react-native';
+import { PaymentIcon } from 'react-native-payment-card-icons';
+
+export default function App() {
+  return (
+    <View>
+      {/* Basic usage */}
+      <PaymentIcon type="visa" />
+
+      {/* With custom styling */}
+      <PaymentIcon
+        type="mastercard"
+        variant="flatRounded"
+        width={60}
+        height={40}
+      />
+
+      {/* Monochrome style with custom color */}
+      <PaymentIcon
+        type="amex"
+        variant="mono"
+        width={50}
+        height={32}
+        fill="#007bff"
+      />
+    </View>
+  );
+}
+```
+
+## Live Examples
+
+Try our interactive demos:
+
+- [Basic Usage](https://snack.expo.dev/@lekgwaraj/react-native-payment-card-icons)
+- [Dynamic Payment Form](https://snack.expo.dev/@lekgwaraj/react-native-payment-card-icons-form)
+- [Custom Themes](https://snack.expo.dev/@lekgwaraj/react-native-payment-card-icons-themes)
