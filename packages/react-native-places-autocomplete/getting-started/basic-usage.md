@@ -66,4 +66,4 @@ const [recentSearches, setRecentSearches] = useState([]);
 />
 ```
 
-See the [Configuration](configuration) guide for more detailed setup options.
+See the [API Reference](api-reference) guide for more detailed setup options.

@@ -78,6 +78,47 @@ interface QueryOptions {
 }
 ```
 
+## Provider Options
+
+Each provider can be configured with specific options:
+
+### Common Options
+| Option | Type | Description |
+|--------|------|-------------|
+| `apiKey` | `string` | API key for the provider |
+| `baseUrl` | `string` | Custom base URL (optional) |
+
+### Provider-Specific Options
+
+#### Google Places
+```typescript
+{
+  apiKey: string;
+  language?: string;
+  region?: string;
+  sessionToken?: string;
+}
+```
+
+#### Mapbox
+```typescript
+{
+  apiKey: string;
+  country?: string;
+  proximity?: [number, number]; // [longitude, latitude]
+  language?: string;
+}
+```
+
+#### OpenStreetMap (Nominatim)
+```typescript
+{
+  userAgent: string; // Required for production use
+  email?: string;    // Required for high-volume usage
+  language?: string;
+}
+```
+
 ## Theme Interface
 
 ```typescript

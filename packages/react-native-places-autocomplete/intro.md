@@ -79,7 +79,7 @@ export default function App() {
 }
 ```
 
-See the [Getting Started](getting-started/installation) guide for complete documentation of available props and examples.
+See the [Getting Started](/places-autocomplete/getting-started/installation) guide for complete documentation of available props and examples.
 
 ## Installation
 
@@ -89,4 +89,4 @@ npm install @julekgwa/react-native-places-autocomplete
 yarn add @julekgwa/react-native-places-autocomplete
 ```
 
-For complete installation instructions, see the [Getting Started Guide](getting-started/installation).
+For complete installation instructions, see the [Getting Started Guide](/places-autocomplete/getting-started/installation).

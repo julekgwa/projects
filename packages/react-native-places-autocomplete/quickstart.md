@@ -99,4 +99,4 @@ The component includes built-in error handling and fallback support:
 />
 ```
 
-See the [Provider Options](getting-started/api-reference#provider-options) and [Components](getting-started/basic-usage) sections for more detailed documentation.
+See the [Provider Options](/places-autocomplete/getting-started/api-reference#provider-options) and [Components](/places-autocomplete/getting-started/basic-usage) sections for more detailed documentation.

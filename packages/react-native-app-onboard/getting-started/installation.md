@@ -47,5 +47,5 @@ const App = () => {
 
 After installation, explore:
 - [Basic Usage](basic-usage) to learn about core features
-- [Configuration](configuration) for customization options
+- [API Reference](api-reference) for customization options
 - [Styling](styling) to match your app's design

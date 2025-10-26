@@ -34,6 +34,6 @@ This package is designed to work with React Native and has no additional depende
 ## Next Steps
 
 After installation:
-1. Check out the [Basic Usage](basic-usage) guide to get started
-2. Configure your preferred provider in the [Configuration](configuration) section
-3. Customize the appearance in the [Styling](styling) guide
+1. Check out the [Basic Usage](/places-autocomplete/getting-started/basic-usage) guide to get started
+2. Configure your preferred provider in the [API Reference](/places-autocomplete/getting-started/api-reference) section
+3. Customize the appearance in the [Styling](/places-autocomplete/getting-started/styling) guide
