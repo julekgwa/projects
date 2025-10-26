@@ -38,6 +38,10 @@ const config: Config = {
 				pages: {
 					path: 'pages',
 				},
+				gtag: {
+					trackingID: 'G-DGRGT4ZTG7',
+					anonymizeIP: true,
+				},
 			},
 		],
 	],
@@ -51,6 +55,8 @@ const config: Config = {
 				routeBasePath: 'places-autocomplete',
 				sidebarPath: require.resolve('./sidebars_places_autocomplete.ts'),
 				editUrl: 'https://github.com/julekgwa/projects/edit/main/packages/react-native-places-autocomplete',
+				showLastUpdateAuthor: true,
+				showLastUpdateTime: true,
 			},
 		],
 		[
@@ -61,6 +67,8 @@ const config: Config = {
 				routeBasePath: 'app-onboard',
 				sidebarPath: require.resolve('./sidebars_app_onboard.ts'),
 				editUrl: 'https://github.com/julekgwa/projects/edit/main/packages/react-native-app-onboard',
+				showLastUpdateAuthor: true,
+				showLastUpdateTime: true,
 			},
 		],
 		[
@@ -71,6 +79,8 @@ const config: Config = {
 				routeBasePath: 'payment-card-icons',
 				sidebarPath: require.resolve('./sidebars_payment_card_icons.ts'),
 				editUrl: 'https://github.com/julekgwa/projects/edit/main/packages/react-native-payment-card-icons',
+				showLastUpdateAuthor: true,
+				showLastUpdateTime: true,
 			},
 		],
 		[
@@ -81,6 +91,8 @@ const config: Config = {
 				routeBasePath: 'input-tag',
 				sidebarPath: require.resolve('./sidebars_input_tag.ts'),
 				editUrl: 'https://github.com/julekgwa/projects/edit/main/packages/react-native-input-tag',
+				showLastUpdateAuthor: true,
+				showLastUpdateTime: true,
 			},
 		],
 	],

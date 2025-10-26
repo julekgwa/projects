@@ -25,6 +25,51 @@ export default function App() {
 }
 ```
 
+Here's a basic example of how to use the LocationAutocomplete component:
+
+```tsx
+import React from 'react';
+import { View, Text } from 'react-native';
+import { LocationAutocomplete } from '@julekgwa/react-native-places-autocomplete';
+
+// Create an attribution component
+const Attribution = () => (
+  <Text style={{ padding: 8, fontSize: 10, color: '#666' }}>
+    © 2024 Your Geocoding Provider
+  </Text>
+);
+
+const App = () => {
+  const handleLocationSelect = (location) => {
+    console.log('Selected location:', location);
+  };
+
+  return (
+    <View style={{ flex: 1, padding: 20 }}>
+      <LocationAutocomplete
+        provider="openstreetmap"
+        onLocationSelect={handleLocationSelect}
+        placeholder="Search for a location..."
+        attribution={Attribution}
+        providerConfig={{
+          userAgent: 'YourApp/1.0',
+        }}
+      />
+    </View>
+  );
+};
+
+export default App;
+```
+
+## Props Explanation
+
+- `provider`: Specifies which geocoding provider to use (e.g., 'openstreetmap', 'google', 'mapbox')
+- `onLocationSelect`: Callback function that receives the selected location data
+- `placeholder`: Custom placeholder text for the search input
+- `attribution`: Component to display provider attribution (required by most providers)
+- `providerConfig`: Configuration options for the selected provider
+
 ## Core Features
 [api-reference.md](api-reference.md)
 ### Location Selection

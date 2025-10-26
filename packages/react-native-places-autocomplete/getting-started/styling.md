@@ -60,68 +60,22 @@ The component provides several style props for customization:
   theme={{
     colors: {
       primary: '#007AFF',
-      background: '#FFFFFF',
-      text: '#000000',
-      placeholder: '#999999',
-      border: '#E0E0E0',
+      surface: '#FFFFFF',
+      onSurface: '#000000',
+      onSurfaceVariant: '#666666',
+      outline: '#E0E0E0',
+      shadow: '#000000'
     },
     typography: {
-      fontSize: 16,
-      fontFamily: 'System',
+      body: { fontSize: 16, fontWeight: '500' },
+      bodySmall: { fontSize: 14, fontWeight: '400' },
+      titleMedium: { fontSize: 16, fontWeight: '600' }
     },
     spacing: {
-      padding: 16,
-      borderRadius: 8,
+      xs: 4,
+      sm: 8,
+      md: 12,
     },
   }}
-/>
-```
-
-## Custom Suggestion Rendering
-
-```jsx
-<PlacesAutocomplete
-  renderSuggestion={({ item }) => (
-    <TouchableOpacity 
-      style={styles.customSuggestion}
-      onPress={() => handleSelect(item)}
-    >
-      <View style={styles.suggestionContent}>
-        <Text style={styles.suggestionTitle}>{item.name}</Text>
-        <Text style={styles.suggestionAddress}>{item.address}</Text>
-      </View>
-      <Icon name="chevron-right" size={20} color="#999" />
-    </TouchableOpacity>
-  )}
-/>
-```
-
-## Input Customization
-
-```jsx
-<PlacesAutocomplete
-  inputProps={{
-    placeholderTextColor: '#999',
-    selectionColor: '#007AFF',
-    returnKeyType: 'search',
-    autoCorrect: false,
-    autoCapitalize: 'none',
-  }}
-  leftIcon={<Icon name="search" size={20} color="#999" />}
-  rightIcon={<Icon name="close" size={20} color="#999" />}
-/>
-```
-
-## Loading State Styling
-
-```jsx
-<PlacesAutocomplete
-  loadingIndicatorStyle={{
-    color: '#007AFF',
-    size: 'small',
-  }}
-  renderLoadingIndicator={() => (
-    <ActivityIndicator color="#007AFF" size="small" />
-  )}
 />
 ```

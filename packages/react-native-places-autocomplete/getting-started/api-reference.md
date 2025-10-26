@@ -10,28 +10,33 @@ keywords: [react native, places autocomplete, api reference, props, typescript, 
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `fetchSuggestions` | `(query: string) => Promise<LocationSuggestion[]>` | `undefined` | Custom fetch function |
-| `provider` | `LocationProvider` | `undefined` | Built-in provider name |
-| `providerConfig` | `ProviderConfig` | `{}` | Provider configuration |
-| `queryOptions` | `QueryOptions` | `{}` | Provider query options |
-| `onLocationSelect` | `(location: LocationSuggestion) => void` | `undefined` | Selection callback |
-| `onQueryChange` | `(query: string) => void` | `undefined` | Query change callback |
-| `placeholder` | `string` | `"Search for a location..."` | Input placeholder |
-| `debounceMs` | `number` | `300` | Debounce delay |
-| `showRecentSearches` | `boolean` | `true` | Show recent searches |
-| `recentSearches` | `string[]` | `[]` | Recent search terms |
-| `onRecentSearchesChange` | `(searches: string[]) => void` | `undefined` | Recent searches callback |
-| `maxRecentSearches` | `number` | `5` | Max recent searches |
+| `fetchSuggestions` | `(query: string) => Promise<LocationSuggestion[]>` | `undefined` | Custom fetch function for retrieving location suggestions. Required when not using a built-in provider |
+| `provider` | `LocationProvider` | `undefined` | Built-in provider name ('openstreetmap', 'mapbox', 'google', etc.) |
+| `providerConfig` | `ProviderConfig` | `{}` | Provider configuration including API keys and base URLs |
+| `queryOptions` | `QueryOptions` | `{}` | Provider-specific query parameters |
+| `onLocationSelect` | `(location: LocationSuggestion) => void` | `undefined` | Callback when a location is selected |
+| `onQueryChange` | `(query: string) => void` | `undefined` | Callback when search query changes |
+| `placeholder` | `string` | `"Search for a location..."` | Input placeholder text |
+| `debounceMs` | `number` | `300` | Debounce delay for API calls in milliseconds |
+| `showRecentSearches` | `boolean` | `true` | Show recent searches when input is empty |
+| `recentSearches` | `string[]` | `[]` | Array of recent search terms |
+| `onRecentSearchesChange` | `(searches: string[]) => void` | `undefined` | Callback when recent searches update |
+| `maxRecentSearches` | `number` | `5` | Maximum number of recent searches to keep |
+| `theme` | `DeepPartial<LocationAutocompleteTheme>` | `{}` | Custom theme configuration |
+| `attribution` | `React.ComponentType \| React.ReactElement` | `null` | Attribution component for provider |
 
 ## Style Props
 
 | Prop | Type | Description |
 |------|------|-------------|
-| `containerStyle` | `ViewStyle` | Main container style |
-| `inputContainerStyle` | `ViewStyle` | Input container style |
-| `inputStyle` | `TextStyle` | Input field style |
-| `suggestionStyle` | `ViewStyle` | Suggestion item style |
-| `textStyle` | `TextStyle` | Text elements style |
+| `containerStyle` | `ViewStyle` | Style for the main wrapper container |
+| `inputContainerStyle` | `ViewStyle` | Style for the input container (with search icon, input, clear button) |
+| `inputStyle` | `TextStyle` | Style for the TextInput field itself |
+| `suggestionStyle` | `ViewStyle` | Style for individual suggestion items |
+| `textStyle` | `TextStyle` | Style for text elements (titles, labels) |
+| `autocompleteContainerStyle` | `ViewStyle` | Style for the autocomplete suggestions container |
+| `autocompleteSuggestionItemStyle` | `ViewStyle` | Style for individual autocomplete suggestion items |
+| `autocompleteSuggestionTextStyle` | `TextStyle` | Style for suggestion text |
 
 ## Type Definitions
 
