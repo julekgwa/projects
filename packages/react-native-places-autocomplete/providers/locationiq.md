@@ -21,6 +21,10 @@ export default function App() {
       providerConfig={{
         apiKey: 'YOUR_LOCATIONIQ_API_KEY'
       }}
+      queryOptions={{
+        limit: 10,
+        countrycodes: 'US,CA',
+      }}
       onLocationSelect={(location) => {
         console.log(location);
       }}
@@ -38,14 +42,31 @@ export default function App() {
     apiKey: 'YOUR_API_KEY'
   }}
   queryOptions={{
-    countrycodes: 'us,ca', // Limit to countries
-    'accept-language': 'en', // Response language
-    limit: 10, // Max results
-    dedupe: 1, // Remove duplicates
-    tag: 'place:city,place:village', // Result types
+    // Maximum number of results (1-20)
+    limit: 10,
+
+    // Comma-separated ISO 3166-1 alpha-2 country codes to restrict results
+    countrycodes: 'US,CA,GB',
+
+    // Normalize the city field when missing (0 = disable, 1 = enable)
+    normalizecity: 1,
+
+    // Preferred language for results (ISO 639-1 two-letter code)
+    'accept-language': 'en',
   }}
 />
 ```
+
+## Query options
+
+Below is a summary of the query options supported by the LocationIQ provider. Use these to control the behavior of the search requests.
+
+| Name | Type | Required | Default | Description | Example |
+|------|------|----------|---------|-------------|---------|
+| `limit` | `number` | No | `10` | Maximum number of results to return. Allowed range: 1–20. | `10` |
+| `countrycodes` | `string` | No | — | Comma-separated ISO 3166-1 alpha-2 codes to restrict search to specific countries. | `'US,CA,GB'` |
+| `normalizecity` | `0 \| 1` | No | `0` | Normalize the city field when missing by falling back to other place components (e.g. locality, town). | `1` |
+| `accept-language` | `string` | No | `'en'` | Preferred language for search results (single 2-character ISO 639-1 code). | `'en'` |
 
 ## Response Format
 
@@ -95,6 +116,12 @@ Example of received data in `onLocationSelect`:
 ```jsx
 <LocationAutocomplete
   provider="locationiq"
+  providerConfig={{
+    apiKey: 'YOUR_API_KEY'
+  }}
+  queryOptions={{
+    limit: 10,
+  }}
   onLocationSelect={(location) => {
     console.log(location.display_name); // Full formatted address
     console.log(location.lat, location.lon); // Coordinates

@@ -21,6 +21,13 @@ export default function App() {
       providerConfig={{
         apiKey: 'YOUR_OPENCAGE_API_KEY'
       }}
+      queryOptions={{
+        language: 'en',
+        limit: 10,
+        countrycode: 'us',
+        bounds: '37.0,-109.05,41.0,-102.05',
+        proximity: '51.952659,-0.987501',
+      }}
       onLocationSelect={(location) => {
         console.log(location);
       }}
@@ -46,6 +53,18 @@ export default function App() {
   }}
 />
 ```
+
+## Query options
+
+Below are the supported `queryOptions` for the OpenCage provider. Use these to bias, filter, or localize results.
+
+| Name | Type | Required | Default | Description | Example |
+|------|------|----------|---------|-------------|---------|
+| `bounds` | `string` | No | — | Restrict results to a bounding box: `minLon,minLat,maxLon,maxLat`. | `"-0.563160,51.280430,0.278970,51.683979"` |
+| `countrycode` | `string` | No | — | Two-letter ISO 3166-1 alpha-2 country code (lowercase) to limit results. | `'gb'` |
+| `language` | `'de' \| 'en' \| 'es' \| 'fr' \| 'native'` | No | `'en'` | Language to display results in; use `'native'` for local language. | `'en'` |
+| `limit` | `number` | No | `5` | Maximum number of results to display (max 10). | `10` |
+| `noResults` | `string` | No | `'No results.'` | Text label to display when the API returns no results (for i18n). | `'No results found'` |
 
 ## Response Format
 
@@ -105,6 +124,16 @@ Example of received data in `onLocationSelect`:
 ```jsx
 <LocationAutocomplete
   provider="opencage"
+  providerConfig={{
+    apiKey: 'YOUR_API_KEY'
+  }}
+  queryOptions={{
+    language: 'en',
+    limit: 10,
+    countrycode: 'us',
+    bounds: '37.0,-109.05,41.0,-102.05',
+    proximity: '51.952659,-0.987501',
+  }}
   onLocationSelect={(location) => {
     console.log(location.display_name); // Formatted address
     console.log(location.lat, location.lon); // Coordinates

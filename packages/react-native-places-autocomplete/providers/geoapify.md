@@ -16,10 +16,13 @@ import { LocationAutocomplete } from '@julekgwa/react-native-places-autocomplete
 
 export default function App() {
   return (
-    <PlacesAutocomplete
+    <LocationAutocomplete
       provider="geoapify"
       providerConfig={{
         apiKey: 'YOUR_GEOAPIFY_API_KEY'
+      }}
+      queryOptions={{
+        limit: 5,
       }}
       onLocationSelect={(location) => {
         console.log(location);
@@ -29,20 +32,29 @@ export default function App() {
 }
 ```
 
-## Configuration Options
+## Query options
+
+The `queryOptions` object is passed to the provider and customizes the geocoding request. Below is a TypeScript interface you can use to type `queryOptions` for the Geoapify provider and examples of commonly used fields.
+
+| Name | Type | Required | Default | Description | Example |
+|------|------|----------|---------|-------------|---------|
+| `type` | `'country' \| 'state' \| 'city' \| 'postcode' \| 'street' \| 'amenity' \| 'locality'` | No | — | Restrict results to a specific location type. | `'locality'` |
+| `limit` | `number` | No | — | Maximum number of results to return. | `5` |
+| `lang` | `string` | No | — | Response language (ISO 639-1 two-letter code). | `'en'` |
+| `filter` | `string` | No | — | Filter results by country, bounding box, or other provider-specific filters. | `'countrycode:us,ca'` |
+| `bias` | `string` | No | — | Bias results toward a location (e.g. proximity or rectangle). | `'proximity:-122.084,37.422'` |
+| `format` | `'json' \| 'xml' \| 'geojson'` | No | `'geojson'` | Response format. | `'geojson'` |
+
+Example usage with `queryOptions`:
 
 ```jsx
-`<LocationAutocomplete
+<LocationAutocomplete
   provider="geoapify"
-  providerConfig={{
-    apiKey: 'YOUR_API_KEY'
-  }}
+  providerConfig={{ apiKey: 'YOUR_KEY' }}
   queryOptions={{
-    type: 'street,city,country', // Result types
-    limit: 5, // Max results
-    lang: 'en', // Response language
-    filter: 'countrycode:us,ca', // Filter by countries
-    bias: '37.7749,-122.4194', // Location bias
+    limit: 5,
+    lang: 'en',
+    bias: 'proximity:-122.084,37.422',
   }}
 />
 ```
@@ -103,7 +115,7 @@ interface LocationSuggestion<Raw = GeoapifyFeature> {
 
 Example of received data in `onLocationSelect`:
 ```jsx
-<PlacesAutocomplete
+<LocationAutocomplete
   provider="geoapify"
   onLocationSelect={(location) => {
     console.log(location.display_name); // Formatted address

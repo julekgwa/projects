@@ -11,16 +11,12 @@ You can provide your own search functionality by passing a `fetchSuggestions` fu
 The `fetchSuggestions` function should match this signature:
 
 ```typescript
-type FetchSuggestions = (query: string) => Promise<LocationSuggestion[]>;
+import {type LocationSuggestion,} from '@julekgwa/react-native-places-autocomplete';
 
-interface LocationSuggestion<Raw = unknown> {
-  place_id: string;
-  display_name: string;
-  lat: string;
+type CustomType = {
   lon: string;
-  type: string;
-  importance: number;
-  raw?: Raw;
+  lat: string;
+  name: string;
 }
 ```
 
@@ -29,7 +25,7 @@ interface LocationSuggestion<Raw = unknown> {
 Here's an example of implementing a custom search function:
 
 ```typescript
-const fetchSuggestions = async (query: string) => {
+const fetchSuggestions = async (query: string): Promise<LocationSuggestion<CustomType>[]> => {
   // Implement your search logic here
   const response = await fetch(
     `https://your-api.com/search?q=${query}&key=YOUR_API_KEY`
@@ -55,55 +51,11 @@ import { LocationAutocomplete } from '@julekgwa/react-native-places-autocomplete
 
 export default function App() {
   return (
-    <LocationAutocomplete
+    <LocationAutocomplete<CustomType>
       fetchSuggestions={fetchSuggestions}
       onLocationSelect={(location) => {
         console.log('Selected:', location);
         console.log('Raw data:', location.raw);
-      }}
-    />
-  );
-}
-```
-
-## Example with Debounce and Error Handling
-
-```jsx
-import { LocationAutocomplete } from '@julekgwa/react-native-places-autocomplete';
-
-export default function App() {
-  return (
-    <LocationAutocomplete
-      fetchSuggestions={async (query) => {
-        try {
-          const response = await fetch(
-            `https://your-api.com/search?q=${query}`
-          );
-          if (!response.ok) {
-            throw new Error('Search failed');
-          }
-          const data = await response.json();
-          
-          return data.results.map(item => ({
-            place_id: item.id.toString(),
-            display_name: item.name,
-            lat: item.latitude.toString(),
-            lon: item.longitude.toString(),
-            type: 'custom',
-            importance: 1,
-            raw: item
-          }));
-        } catch (error) {
-          console.error('Search error:', error);
-          return [];
-        }
-      }}
-      debounceMs={500}
-      onLocationSelect={(location) => {
-        console.log(location);
-      }}
-      onQueryChange={(query) => {
-        console.log('Current query:', query);
       }}
     />
   );

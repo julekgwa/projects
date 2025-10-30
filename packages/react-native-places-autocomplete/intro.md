@@ -73,6 +73,9 @@ export default function App() {
   return (
     <LocationAutocomplete
       provider="openstreetmap" // No API key required for OpenStreetMap
+      query={{
+        limit: 5,
+      }}
       onLocationSelect={(location) => {
         console.log('Selected location:', location);
       }}
