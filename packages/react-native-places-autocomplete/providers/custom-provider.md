@@ -18,6 +18,11 @@ type CustomType = {
   lat: string;
   name: string;
 }
+
+const fetchSuggestions = async (query: string): Promise<LocationSuggestion<CustomType>[]> => {
+  // Implement your search logic here
+  return [];
+};
 ```
 
 ## Example Implementation
