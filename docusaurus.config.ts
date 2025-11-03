@@ -54,7 +54,7 @@ const config: Config = {
 				path: 'packages/react-native-places-autocomplete',
 				routeBasePath: 'places-autocomplete',
 				sidebarPath: require.resolve('./sidebars_places_autocomplete.ts'),
-				editUrl: 'https://github.com/julekgwa/projects/edit/main/packages/react-native-places-autocomplete/',
+				editUrl: 'https://github.com/julekgwa/projects/edit/main',
 				showLastUpdateAuthor: true,
 				showLastUpdateTime: true,
 			},
