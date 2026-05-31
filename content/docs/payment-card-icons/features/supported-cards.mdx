@@ -1,0 +1,166 @@
+---
+title: Supported Cards
+---
+
+# Supported Payment Methods
+
+## Available Card Types
+
+| Card Type | Description | Preview |
+|-----------|-------------|----------|
+| `visa` | Visa | All variants supported |
+| `mastercard` | Mastercard | All variants supported |
+| `amex` | American Express | All variants supported |
+| `maestro` | Maestro | All variants supported |
+| `discover` | Discover | All variants supported |
+| `jcb` | JCB | All variants supported |
+| `diners` | Diners Club | All variants supported |
+| `unionpay` | UnionPay | All variants supported |
+| `elo` | Elo | All variants supported |
+| `hiper` | Hiper | All variants supported |
+| `hipercard` | Hipercard | All variants supported |
+| `mir` | Mir | All variants supported |
+| `alipay` | Alipay | All variants supported |
+| `paypal` | PayPal | All variants supported |
+| `generic-card` | Generic Card | All variants supported |
+| `security-code` | Security Code (CVV) | All variants supported |
+| `security-code-front` | Security Code Front | All variants supported |
+
+## Card Detection
+
+```tsx
+const detectCardType = (number: string): PaymentIconType => {
+  const patterns = {
+    visa: /^4/,
+    mastercard: /^(5[1-5]|2[2-7])/,
+    amex: /^3[47]/,
+    discover: /^(6011|65|64[4-9]|622)/,
+    jcb: /^35/,
+    diners: /^(30[0-5]|36|38)/,
+    unionpay: /^(62|88)/,
+    maestro: /^(5018|5020|5038|6304|6759|6761|6763)/,
+  };
+
+  for (const [type, pattern] of Object.entries(patterns)) {
+    if (pattern.test(number)) {
+      return type as PaymentIconType;
+    }
+  }
+
+  return 'generic-card';
+};
+```
+
+## Grid Layout Example
+
+```tsx
+import React from 'react';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { PaymentIcon } from 'react-native-payment-card-icons';
+
+const supportedCards = [
+  { type: 'visa', name: 'Visa' },
+  { type: 'mastercard', name: 'Mastercard' },
+  { type: 'amex', name: 'American Express' },
+  { type: 'discover', name: 'Discover' },
+  { type: 'paypal', name: 'PayPal' },
+  // Add more cards as needed
+];
+
+export default function SupportedCards() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Supported Payment Methods</Text>
+      <FlatList
+        data={supportedCards}
+        numColumns={3}
+        renderItem={({ item }) => (
+          <View style={styles.cardItem}>
+            <PaymentIcon
+              type={item.type}
+              variant="flatRounded"
+              width={60}
+              height={40}
+            />
+            <Text style={styles.cardName}>{item.name}</Text>
+          </View>
+        )}
+        keyExtractor={(item) => item.type}
+      />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  cardItem: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 10,
+  },
+  cardName: {
+    marginTop: 8,
+    fontSize: 12,
+    textAlign: 'center',
+  },
+});
+```
+
+## Card Variants
+
+Each card type supports six different variants:
+
+### 1. Flat Style
+```tsx
+<PaymentIcon type="visa" variant="flat" />
+```
+
+### 2. Flat Rounded Style
+```tsx
+<PaymentIcon type="visa" variant="flatRounded" />
+```
+
+### 3. Logo Style
+```tsx
+<PaymentIcon type="visa" variant="logo" />
+```
+
+### 4. Logo Border Style
+```tsx
+<PaymentIcon type="visa" variant="logoBorder" />
+```
+
+### 5. Mono Style
+```tsx
+<PaymentIcon type="visa" variant="mono" fill="#000000" />
+```
+
+### 6. Mono Outline Style
+```tsx
+<PaymentIcon type="visa" variant="monoOutline" fill="#000000" />
+```
+
+## Best Practices
+
+1. **Default to Flat or FlatRounded**
+   - These variants provide the best visibility
+   - Most familiar to users
+
+2. **Use Mono Variants for Custom Themes**
+   - Perfect for dark mode
+   - Match your brand colors
+
+3. **Consider Logo Variants for Trust**
+   - Official logos build trust
+   - Best for checkout pages
+
+4. **Use Generic Card as Fallback**
+   - When card type is unknown
+   - Before card detection

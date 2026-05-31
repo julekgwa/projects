@@ -1,0 +1,11 @@
+{
+  "title": "React Native Places Autocomplete",
+  "root": true,
+  "pagesIndex": "index",
+  "pages": [
+   "index",
+   "getting-started",
+  "providers"
+  ],
+  "defaultOpen": true
+}

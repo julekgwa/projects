@@ -1,0 +1,11 @@
+{
+  "title": "React Native App Onboard",
+  "root": true,
+  "pagesIndex": "index",
+  "pages": [
+   "index",
+   "getting-started",
+  "features"
+  ],
+  "defaultOpen": true
+}

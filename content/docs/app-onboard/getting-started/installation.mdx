@@ -1,0 +1,76 @@
+---
+title: Installation
+---
+
+# Installation
+
+<CodeBlockTabs defaultValue="npm">
+  <CodeBlockTabsList>
+    <CodeBlockTabsTrigger value="npm">npm</CodeBlockTabsTrigger>
+    <CodeBlockTabsTrigger value="yarn">Yarn</CodeBlockTabsTrigger>
+    <CodeBlockTabsTrigger value="bun">Bun</CodeBlockTabsTrigger>
+    <CodeBlockTabsTrigger value="pnpm">pnpm</CodeBlockTabsTrigger>
+  </CodeBlockTabsList>
+  <CodeBlockTab value="npm">
+
+```bash
+npm install react-native-app-onboard
+```
+
+  </CodeBlockTab>
+  <CodeBlockTab value="yarn">
+
+```bash
+yarn add react-native-app-onboard
+```
+
+  </CodeBlockTab>
+  <CodeBlockTab value="bun">
+
+```bash
+bun add react-native-app-onboard
+```
+
+  </CodeBlockTab>
+  <CodeBlockTab value="pnpm">
+
+```bash
+pnpm add react-native-app-onboard
+```
+
+  </CodeBlockTab>
+</CodeBlockTabs>
+
+## Basic Setup
+
+```jsx
+import React from 'react';
+import { Image } from 'react-native';
+import { Onboarding } from 'react-native-app-onboard';
+
+const App = () => {
+  return (
+    <Onboarding
+      pages={[
+        {
+          backgroundColor: '#140E17',
+          image: <Image source={require('./images/image1.png')} />,
+          title: 'Welcome',
+          subtitle: 'Get started with our app',
+        },
+        // Add more pages as needed
+      ]}
+      onDone={() => {
+        // Handle onboarding completion
+      }}
+    />
+  );
+};
+```
+
+## Next Steps
+
+After installation, explore:
+- [Basic Usage](/app-onboard/getting-started/basic-usage) to learn about core features
+- [API Reference](/app-onboard/getting-started/api-reference) for customization options
+- [Styling](/app-onboard/getting-started/styling) to match your app's design

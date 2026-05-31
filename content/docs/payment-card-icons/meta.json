@@ -1,0 +1,11 @@
+{
+  "title": "Payment Card Icons",
+  "root": true,
+  "pagesIndex": "index",
+  "pages": [
+   "index",
+   "getting-started",
+  "features"
+  ],
+  "defaultOpen": true
+}
