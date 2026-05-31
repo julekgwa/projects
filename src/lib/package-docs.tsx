@@ -70,7 +70,7 @@ export function PackageDocPage({
     owner: 'julekgwa',
     repo: 'projects',
     sha: 'main',
-    path: pageFilePath,
+    path: `content/docs/${pageFilePath}`,
   };
 
   return (

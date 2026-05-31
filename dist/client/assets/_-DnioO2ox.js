@@ -1,1 +1,0 @@
-import{H as e,R as t,i as n,o as r}from"./index-DR_5uVPS.js";var i=e(t());function a(){return(0,i.jsx)(r,{loaderData:n.useLoaderData()})}export{a as component};
