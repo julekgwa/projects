@@ -15,6 +15,13 @@ title: Styling
 | `doneLabelStyle` | `StyleProp<TextStyle>` | Done button text style |
 | `skipLabelStyle` | `StyleProp<TextStyle>` | Skip button text style |
 | `nextLabelStyle` | `StyleProp<TextStyle>` | Next button text style |
+| `previousLabelStyle` | `StyleProp<TextStyle>` | Back button text style |
+| `skipButtonContainerStyle` | `StyleProp<ViewStyle>` | Skip button container |
+| `nextButtonContainerStyle` | `StyleProp<ViewStyle>` | Next button container |
+| `doneButtonContainerStyle` | `StyleProp<ViewStyle>` | Done button container |
+| `previousButtonContainerStyle` | `StyleProp<ViewStyle>` | Back button container |
+| `progressBarStyle` | `StyleProp<ViewStyle>` | Progress bar track (when `paginationStyle="progress"`) |
+| `progressBarFillStyle` | `StyleProp<ViewStyle>` | Progress bar fill (when `paginationStyle="progress"`) |
 | `containerStyle` | `StyleProp<ViewStyle>` | Main container style |
 | `imageContainerStyle` | `StyleProp<ViewStyle>` | Image container style |
 | `titleContainerStyle` | `StyleProp<ViewStyle>` | Title container style |

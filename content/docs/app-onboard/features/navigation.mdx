@@ -1,0 +1,107 @@
+---
+title: Navigation & Autoplay
+---
+
+# Navigation & Autoplay
+
+Beyond swiping, the Onboarding component offers Back/Next/Skip/Done controls,
+autoplay, looping, a controlled page index, and per-page swipe gating.
+
+## Previous (Back) button
+
+Set `showPrevious` to add a "Back" button on the left of the footer. It appears
+once the user is past the first page.
+
+```jsx
+<Onboarding
+  pages={pages}
+  showPrevious
+  previousLabel="Back" // optional custom label
+/>
+```
+
+## Autoplay & looping
+
+`autoPlay` advances through the pages automatically and pauses as soon as the
+user swipes. `autoPlayInterval` sets the delay between advances, and `loop`
+wraps around at the ends.
+
+```jsx
+<Onboarding
+  pages={pages}
+  autoPlay
+  autoPlayInterval={4000} // default 3000ms
+  loop
+/>
+```
+
+You can also pause/resume autoplay programmatically via the
+[`useOnboarding`](/app-onboard/features/hooks) hook (`pauseAutoPlay` /
+`resumeAutoPlay`).
+
+## Controlled page index
+
+Pass `currentPage` to drive the slider from your own state. Whenever the value
+changes, the slider navigates to that page. Pair it with `onPageChange` to keep
+your state in sync with user swipes.
+
+```jsx
+const [page, setPage] = useState(0);
+
+<Onboarding
+  pages={pages}
+  currentPage={page}
+  onPageChange={setPage}
+/>;
+```
+
+## Reacting to page changes
+
+`onPageChange` fires on every page change — swipe, button, or autoplay — which is
+handy for analytics:
+
+```jsx
+<Onboarding
+  pages={pages}
+  onPageChange={(index) => analytics.track('onboarding_page', { index })}
+/>
+```
+
+## Skip to a page
+
+By default "Skip" fires `onSkip`. Set `skipToPage` to navigate within the flow
+instead (for example, skip the intro slides but land on a sign-up slide).
+When `skipToPage` is set, `onSkip` is **not** called.
+
+```jsx
+<Onboarding
+  pages={pages}
+  showSkip
+  skipToPage={pages.length - 1}
+/>
+```
+
+## Per-page swipe gating
+
+Block navigation away from a page until some condition is met (e.g. a form is
+valid). Set `canSwipeForward` or `canSwipeBackward` to `false` on the page.
+While gated, swiping is disabled and the corresponding button (Next / Back) is
+disabled — the other direction still works.
+
+```jsx
+<Onboarding
+  pages={[
+    { title: 'Welcome', subtitle: '...', image: <Logo />, backgroundColor: '#fff' },
+    {
+      title: 'Sign up',
+      subtitle: 'Complete the form to continue',
+      image: <SignupForm />,
+      backgroundColor: '#fff',
+      canSwipeForward: isFormValid, // blocks Next until valid
+    },
+  ]}
+/>
+```
+
+Combine gating with a controlled `currentPage` to advance programmatically once
+the condition is satisfied.

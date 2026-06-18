@@ -25,11 +25,16 @@ A customizable, easy-to-use, and efficient library for creating compelling onboa
 ## Features
 
 - 🎨 **Fully Customizable**: Style every aspect of your onboarding screens
-- 🔄 **Smooth Animations**: Fluid transitions between screens
-- 📱 **React Native First**: Built specifically for React Native
-- ⚛️ **Custom Components**: Support for custom page components
-- 🎯 **Flexible Positioning**: Configurable layout and component positioning
-- 🎮 **Hook Support**: Built-in hook for advanced control
+- 🔄 **Smooth Animations**: Animated background-color transitions and optional staggered entrance animations
+- 🟢 **Flexible Pagination**: Animated dots or a progress bar, with optional tap-to-navigate
+- ⏩ **Navigation & Autoplay**: Skip, Next, Previous, Done controls, autoplay with looping, and a controlled `currentPage`
+- 🌈 **Per-page Backgrounds**: Full-screen gradient/image backgrounds that cross-fade between pages
+- 🌍 **RTL Support**: Follows the device direction or force it with the `rtl` prop
+- ♿ **Accessibility**: Screen-reader page announcements and accessible controls
+- 💾 **Persistence Helpers**: Storage-agnostic helpers to show onboarding only once
+- ⚛️ **Custom Components**: Support for custom page components and a custom footer
+- 🎮 **Hook Support**: `useOnboarding` hook for reading and controlling the flow
+- 📦 **Zero Dependencies**: Written in TypeScript with zero runtime dependencies
 
 ## Installation
 
@@ -112,5 +117,7 @@ export default App;
 
 Try it out on Expo:
 - [Basic Example](https://snack.expo.dev/@lekgwaraj/react-native-app-onboard?platform=ios)
+- [Gradient Backgrounds Example](https://snack.expo.dev/@lekgwaraj/react-native-app-onboard-gradient?platform=ios)
+- [RTL (Arabic) Example](https://snack.expo.dev/@lekgwaraj/react-native-app-onboard-rtl?platform=ios)
 - [Custom Footer Example](https://snack.expo.dev/@lekgwaraj/react-native-app-onboard-custom-pagination?platform=ios)
 - [Custom Pages Example](https://snack.expo.dev/@lekgwaraj/react-native-app-onboard-custom?platform=ios)

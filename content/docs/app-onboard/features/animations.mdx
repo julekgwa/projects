@@ -4,27 +4,54 @@ title: Animations
 
 # Animations
 
-The Onboarding component includes various animation options and supports custom animations.
+The Onboarding component animates the background color between pages and offers
+an optional staggered entrance animation. You can also build fully custom
+animations inside custom pages.
 
 ## Built-in Animations
 
+### Background color transition
+
+Pages with a `backgroundColor` cross-fade automatically as the user swipes — no
+configuration required. This transition always runs JS-driven so the
+interpolation can blend colors.
+
+### Staggered entrance (`animatePages`)
+
+When `animatePages` is set, the image, title, then subtitle of the active page
+fade in and slide up in sequence. The animation runs once, the first time each
+page becomes active. This applies to the declarative `pages` API.
+
+```jsx
+<Onboarding
+  pages={pages}
+  animatePages
+  // Optional tuning (defaults shown)
+  entranceConfig={{
+    stagger: 120, // ms between each element
+    duration: 400, // ms per element
+    distance: 24, // slide-up distance in px
+  }}
+/>
+```
+
+| `entranceConfig` field | Default | Description |
+|------------------------|---------|-------------|
+| `stagger` | `120` | Milliseconds between each element animating in |
+| `duration` | `400` | Milliseconds each element takes to animate |
+| `distance` | `24` | Slide-up distance in pixels |
+
 ### Scroll Animation
+
+Use `scrollAnimationDuration` to control the duration of programmatic
+transitions (`nextPage`, `previousPage`, `scrollTo`, and autoplay).
+`useNativeDriver` drives the pagination dot animation on the native thread (the
+background-color transition always stays JS-driven).
 
 ```jsx
 <Onboarding
   scrollAnimationDuration={500}
   useNativeDriver={true}
-/>
-```
-
-### Dot Animation
-
-```jsx
-<Onboarding
-  dotAnimation={{
-    type: 'slide',
-    duration: 300,
-  }}
 />
 ```
 

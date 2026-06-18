@@ -6,28 +6,69 @@ title: API Reference
 
 ## Component Props
 
+### Content & layout
+
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `children` | `React.ReactNode[]` | | Optional child components |
-| `nextLabel` | `string \| React.ReactNode` | | Custom "Next" button label |
-| `skipLabel` | `string \| React.ReactNode` | | Custom "Skip" button label |
-| `doneLabel` | `string \| React.ReactNode` | | Custom "Done" button label |
-| `showSkip` | `boolean` | `false` | Show/hide skip button |
-| `showNext` | `boolean` | `true` | Show/hide next button |
-| `showDone` | `boolean` | `true` | Show/hide done button |
-| `scrollAnimationDuration` | `number` | `500` | Animation duration |
-| `useNativeDriver` | `boolean` | | Use native driver |
-| `onDone` | `() => void` | | Done callback |
-| `onSkip` | `() => void` | | Skip callback |
-| `showPagination` | `boolean` | `true` | Show/hide pagination |
-| `scrollEnabled` | `boolean` | `true` | Enable scrolling |
-| `paginationPosition` | `'top' \| 'bottom'` | | Pagination position |
-| `width` | `number` | | Custom width |
-| `color` | `string` | | Pagination color |
-| `pages` | `Page[]` | | Array of pages |
-| `swap` | `boolean` | `false` | Swap layout |
+| `pages` | `Page[]` | | Array of [`Page`](#page-type) objects to render as the onboarding screens. |
+| `children` | `React.ReactNode[]` | | Custom page components rendered instead of `pages`. |
+| `width` | `number` | screen width | Custom width for the onboarding component. |
+| `color` | `string` | | Color of the pagination dots. |
+| `swap` | `boolean` | `false` | Swaps the positions of the title/subtitle and image. |
+| `customFooter` | `(props: { nextPage: () => void }) => React.ReactNode` | | Render prop that returns a custom footer. |
 
-## Page Interface
+### Buttons & labels
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `showSkip` | `boolean` | `false` | Show/hide the "Skip" button. |
+| `showNext` | `boolean` | `true` | Show/hide the "Next" button. |
+| `showDone` | `boolean` | `true` | Show/hide the "Done" button. |
+| `showPrevious` | `boolean` | `false` | Show a "Back" button (left of the footer) once past the first page. |
+| `nextLabel` | `string \| React.ReactNode` | `Next` | Custom label for the "Next" button. |
+| `skipLabel` | `string \| React.ReactNode` | `Skip` | Custom label for the "Skip" button. |
+| `doneLabel` | `string \| React.ReactNode` | `Done` | Custom label for the "Done" button. |
+| `previousLabel` | `string \| React.ReactNode` | `Back` | Custom label for the "Back" button. |
+| `skipButtonPosition` | `'top-left' \| 'top-right'` | | Renders "Skip" as a floating button in a corner instead of in the footer. |
+
+### Navigation & autoplay
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `currentPage` | `number` | | Controlled page index — when it changes, the slider navigates to that page. Pair with `onPageChange`. |
+| `skipToPage` | `number` | | When set, pressing "Skip" navigates to this page index instead of firing `onSkip`. |
+| `autoPlay` | `boolean` | `false` | Automatically advances through the pages. Pauses as soon as the user scrolls manually. |
+| `autoPlayInterval` | `number` | `3000` | Delay (ms) between automatic page advances when `autoPlay` is enabled. |
+| `loop` | `boolean` | `false` | Wraps navigation around at either end (used by autoplay and the Next/Back buttons). |
+| `scrollEnabled` | `boolean` | `true` | Determines whether the screens are swipeable. |
+| `scrollAnimationDuration` | `number` | | Custom duration (ms) for programmatic transitions (`nextPage`/`previousPage`/`scrollTo`/autoplay). Unset uses the platform default. |
+| `onDone` | `() => void` | | Called when the "Done" button is pressed. |
+| `onSkip` | `() => void` | | Called when the "Skip" button is pressed (unless `skipToPage` is set). |
+| `onPageChange` | `(index: number) => void` | | Called with the new page index on every change (swipe, button, or autoplay). Useful for analytics. |
+
+### Pagination
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `showPagination` | `boolean` | `true` | Show/hide pagination indicators. |
+| `paginationStyle` | `'dots' \| 'progress'` | `'dots'` | Render pagination as animated dots or as a progress bar. |
+| `paginationPosition` | `'top' \| 'bottom'` | `'bottom'` | Position of the pagination indicators. |
+| `tappableDots` | `boolean` | `false` | When `true`, tapping a pagination dot scrolls to that page. |
+| `progressBarStyle` | `StyleProp<ViewStyle>` | | Style for the progress bar track (when `paginationStyle="progress"`). |
+| `progressBarFillStyle` | `StyleProp<ViewStyle>` | | Style for the progress bar fill (when `paginationStyle="progress"`). |
+
+### Animation & direction
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `animatePages` | `boolean` | `false` | Staggered entrance: the image, title, then subtitle of the active page fade + slide in (declarative `pages` API). |
+| `entranceConfig` | `{ stagger?: number; duration?: number; distance?: number }` | | Tunes `animatePages` — ms between elements (default 120), ms per element (default 400), slide-up px (default 24). |
+| `useNativeDriver` | `boolean` | `false` | Drives the pagination dot animation on the native thread. The background-color transition always stays JS-driven. |
+| `rtl` | `boolean` | `I18nManager.isRTL` | Renders the slider right-to-left. Defaults to the device direction; set explicitly to force a direction (declarative `pages` API). |
+
+## Page Type
+
+Each `Page` object in the `pages` prop conforms to:
 
 ```typescript
 interface Page {
@@ -35,6 +76,14 @@ interface Page {
   subtitle: string;
   image: React.ReactNode;
   backgroundColor: string;
+  // Optional
+  background?: React.ReactNode;
+  isLight?: boolean;
+  nextLabel?: string | React.ReactNode;
+  skipLabel?: string | React.ReactNode;
+  doneLabel?: string | React.ReactNode;
+  canSwipeForward?: boolean;
+  canSwipeBackward?: boolean;
   color?: string;
   width?: number;
   containerStyle?: StyleProp<ViewStyle>;
@@ -45,18 +94,46 @@ interface Page {
 }
 ```
 
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `title` | `string` | Yes | The main title text. |
+| `subtitle` | `string` | Yes | The subtitle text. |
+| `image` | `React.ReactNode` | Yes | The image/illustration node. |
+| `backgroundColor` | `string` | Yes | The page background color (animated between pages). |
+| `background` | `React.ReactNode` | No | Custom background element (e.g. a `LinearGradient`) cross-faded as the user swipes. Falls back to `backgroundColor`. |
+| `isLight` | `boolean` | No | Overrides automatic light/dark footer/button contrast detection. When omitted, the brightness of `backgroundColor` is used. |
+| `nextLabel` / `skipLabel` / `doneLabel` | `string \| React.ReactNode` | No | Per-page overrides for the button labels (fall back to top-level labels). |
+| `canSwipeForward` | `boolean` | No | When `false`, blocks advancing past this page (swipe disabled, Next disabled; Back still works). Default `true`. |
+| `canSwipeBackward` | `boolean` | No | When `false`, blocks returning from this page (swipe disabled, Back disabled; Next still works). Default `true`. |
+| `color` | `string` | No | Text color for the title and subtitle. |
+| `width` | `number` | No | Custom page width. |
+| `containerStyle` | `StyleProp<ViewStyle>` | No | Style for the page container view. |
+| `imageContainerStyle` | `StyleProp<ViewStyle>` | No | Style for the image container. |
+| `titleContainerStyle` | `StyleProp<ViewStyle>` | No | Style for the title container. |
+| `titleStyle` | `StyleProp<TextStyle>` | No | Style for the title text. |
+| `subtitleStyle` | `StyleProp<TextStyle>` | No | Style for the subtitle text. |
+
 ## Style Props
 
 | Prop | Type | Description |
 |------|------|-------------|
-| `paginationContainerStyle` | `StyleProp<ViewStyle>` | Pagination container style |
-| `buttonRightContainerStyle` | `StyleProp<ViewStyle>` | Right button container |
-| `buttonLeftContainerStyle` | `StyleProp<ViewStyle>` | Left button container |
-| `dotsContainerStyle` | `StyleProp<ViewStyle>` | Dots container style |
-| `doneLabelStyle` | `StyleProp<TextStyle>` | Done button text style |
-| `skipLabelStyle` | `StyleProp<TextStyle>` | Skip button text style |
-| `nextLabelStyle` | `StyleProp<TextStyle>` | Next button text style |
-| `containerStyle` | `StyleProp<ViewStyle>` | Main container style |
+| `containerStyle` | `StyleProp<ViewStyle>` | Main container style. |
+| `paginationContainerStyle` | `StyleProp<ViewStyle>` | Pagination container style. |
+| `buttonRightContainerStyle` | `StyleProp<ViewStyle>` | Right button container. |
+| `buttonLeftContainerStyle` | `StyleProp<ViewStyle>` | Left button container. |
+| `dotsContainerStyle` | `StyleProp<ViewStyle>` | Dots container style. |
+| `imageContainerStyle` | `StyleProp<ViewStyle>` | Image container style. |
+| `titleContainerStyle` | `StyleProp<ViewStyle>` | Title container style. |
+| `titleStyle` | `StyleProp<TextStyle>` | Title text style. |
+| `subtitleStyle` | `StyleProp<TextStyle>` | Subtitle text style. |
+| `doneLabelStyle` | `StyleProp<TextStyle>` | Done button text style. |
+| `skipLabelStyle` | `StyleProp<TextStyle>` | Skip button text style. |
+| `nextLabelStyle` | `StyleProp<TextStyle>` | Next button text style. |
+| `previousLabelStyle` | `StyleProp<TextStyle>` | Back button text style. |
+| `skipButtonContainerStyle` | `StyleProp<ViewStyle>` | "Skip" button container. |
+| `nextButtonContainerStyle` | `StyleProp<ViewStyle>` | "Next" button container. |
+| `doneButtonContainerStyle` | `StyleProp<ViewStyle>` | "Done" button container. |
+| `previousButtonContainerStyle` | `StyleProp<ViewStyle>` | "Back" button container. |
 
 ## Hook API
 
@@ -65,14 +142,38 @@ interface Page {
 ```typescript
 interface OnboardingHook {
   currentPage: number;
-  setCurrentPage: (page: number) => void;
+  setCurrentPage: (page: number) => void; // state only — does not scroll
   scrollEnabled: boolean;
   enableScroll: (enabled: boolean) => void;
   flatListRef: React.RefObject<FlatList>;
+  setFlatListRef: (node: FlatList | null) => void;
+  width: number;
   numberOfScreens: number;
-  nextPage: () => void;
-  scrollTo: (page: number) => void;
-  progress: number;
+  nextPage: (animated?: boolean) => void;
+  previousPage: (animated?: boolean) => void;
+  scrollTo: (page: number, animated?: boolean) => void;
+  progress: number; // 0–100
   isDone: boolean;
+  pauseAutoPlay: () => void;
+  resumeAutoPlay: () => void;
 }
 ```
+
+See [Hooks](/app-onboard/features/hooks) for usage examples.
+
+## Persistence helpers
+
+```typescript
+type OnboardingStorageAdapter = {
+  getItem: (key: string) => Promise<string | null>;
+  setItem: (key: string, value: string) => Promise<void>;
+  removeItem: (key: string) => Promise<void>;
+};
+
+createOnboardingStorage(storage: OnboardingStorageAdapter, key?: string);
+hasCompletedOnboarding(storage: OnboardingStorageAdapter, key?: string): Promise<boolean>;
+markOnboardingComplete(storage: OnboardingStorageAdapter, key?: string): Promise<void>;
+resetOnboarding(storage: OnboardingStorageAdapter, key?: string): Promise<void>;
+```
+
+See [Persistence](/app-onboard/features/persistence) for details.

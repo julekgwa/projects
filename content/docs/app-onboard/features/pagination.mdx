@@ -1,0 +1,65 @@
+---
+title: Pagination
+---
+
+# Pagination
+
+Pagination can render as animated dots (default) or as a progress bar, in either
+the top or bottom position, and can optionally be tappable.
+
+## Dots vs. progress bar
+
+```jsx
+// Animated dots (default)
+<Onboarding pages={pages} paginationStyle="dots" />
+
+// Progress bar
+<Onboarding pages={pages} paginationStyle="progress" />
+```
+
+The progress bar is accessible — it exposes an `accessibilityRole="progressbar"`
+with the current value for screen readers.
+
+## Tap to navigate
+
+Set `tappableDots` so tapping a dot scrolls to that page:
+
+```jsx
+<Onboarding pages={pages} tappableDots />
+```
+
+## Position
+
+```jsx
+<Onboarding pages={pages} paginationPosition="top" />
+```
+
+## Hiding pagination
+
+```jsx
+<Onboarding pages={pages} showPagination={false} />
+```
+
+## Styling
+
+Dots use `color`, `dotsContainerStyle`, and `paginationContainerStyle`. The
+progress bar adds `progressBarStyle` (track) and `progressBarFillStyle` (fill).
+
+```jsx
+<Onboarding
+  pages={pages}
+  paginationStyle="progress"
+  color="#007AFF"
+  progressBarStyle={{ height: 6, borderRadius: 3 }}
+  progressBarFillStyle={{ borderRadius: 3 }}
+  paginationContainerStyle={{ paddingHorizontal: 24 }}
+/>
+```
+
+By default the colors derive automatically from the page's `backgroundColor` so
+they stay legible on both light and dark pages. Override `color` to set them
+explicitly.
+
+> Need a fully bespoke footer? Use the [custom footer](/app-onboard/features/custom-footer)
+> render prop, or read `progress` from the [`useOnboarding`](/app-onboard/features/hooks)
+> hook.

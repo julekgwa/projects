@@ -1,0 +1,14 @@
+{
+  "title": "Features",
+  "pages": [
+    "navigation",
+    "pagination",
+    "backgrounds",
+    "animations",
+    "rtl",
+    "persistence",
+    "custom-pages",
+    "custom-footer",
+    "hooks"
+  ]
+}

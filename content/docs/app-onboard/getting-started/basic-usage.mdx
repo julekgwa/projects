@@ -49,8 +49,10 @@ const App = () => {
   showSkip={true}
   showNext={true}
   showDone={true}
+  showPrevious={true} // adds a "Back" button past the first page
   onSkip={() => console.log('Skipped')}
   onDone={() => console.log('Done')}
+  onPageChange={(index) => console.log('On page', index)}
 />
 ```
 
@@ -59,10 +61,27 @@ const App = () => {
 ```jsx
 <Onboarding
   showPagination={true}
+  paginationStyle="progress" // 'dots' (default) or 'progress'
   paginationPosition="bottom"
+  tappableDots={true}
   color="#007AFF"
 />
 ```
+
+See [Pagination](/app-onboard/features/pagination) for the dots vs. progress bar options.
+
+### Autoplay
+
+```jsx
+<Onboarding
+  pages={pages}
+  autoPlay
+  autoPlayInterval={4000}
+  loop // wraps back to the first page after the last
+/>
+```
+
+Autoplay pauses automatically as soon as the user swipes. See [Navigation & Autoplay](/app-onboard/features/navigation).
 
 ### Scroll Control
 
@@ -73,6 +92,18 @@ const App = () => {
   useNativeDriver={true}
 />
 ```
+
+### Entrance Animation
+
+```jsx
+<Onboarding
+  pages={pages}
+  animatePages // staggered fade + slide-up for image, title, subtitle
+  entranceConfig={{ stagger: 120, duration: 400, distance: 24 }}
+/>
+```
+
+See [Animations](/app-onboard/features/animations) for tuning details.
 
 ## Using with Navigation
 

@@ -1,0 +1,84 @@
+---
+title: Backgrounds & Gradients
+---
+
+# Backgrounds & Gradients
+
+Each page animates its `backgroundColor` as the user swipes. For richer visuals,
+provide a custom `background` element per page — for example a gradient or a
+full-screen image — and it will cross-fade between pages.
+
+<a href="https://snack.expo.dev/@lekgwaraj/react-native-app-onboard-gradient?platform=ios">
+  <img src="https://img.shields.io/badge/Try%20it%20on-Expo%20Snack-4630EB.svg?style=for-the-badge&logo=expo&labelColor=FFF&logoColor=000" alt="Try it on Expo Snack"/>
+</a>
+
+## Per-page gradient background
+
+The `background` prop accepts any React node, rendered behind the page content
+and cross-faded as the user swipes. It falls back to `backgroundColor` when
+omitted.
+
+```jsx
+import { LinearGradient } from 'expo-linear-gradient';
+
+<Onboarding
+  pages={[
+    {
+      title: 'Welcome',
+      subtitle: 'Beautiful gradients out of the box',
+      image: <Logo />,
+      backgroundColor: '#7F00FF', // fallback / drives auto contrast
+      background: (
+        <LinearGradient
+          colors={['#7F00FF', '#E100FF']}
+          style={{ flex: 1 }}
+        />
+      ),
+    },
+    // ...more pages
+  ]}
+/>;
+```
+
+## Light / dark contrast
+
+The footer and button colors are derived automatically from each page's
+`backgroundColor` brightness. When you use a custom `background` (e.g. a
+gradient), set `isLight` to tell the component whether to treat the page as light
+or dark, so the controls stay legible:
+
+```jsx
+{
+  title: 'Dark gradient',
+  subtitle: '...',
+  image: <Logo />,
+  backgroundColor: '#140E17',
+  background: <LinearGradient colors={['#140E17', '#3A1C71']} style={{ flex: 1 }} />,
+  isLight: false, // force dark-page contrast for the footer/buttons
+}
+```
+
+## Safe areas (notches & home indicator)
+
+The library doesn't add safe-area padding itself. For full-screen gradient
+backgrounds, the recommended approach is **edge-to-edge**: render the slider
+full-bleed and inset the controls using the style props.
+
+```jsx
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+const insets = useSafeAreaInsets();
+
+<Onboarding
+  pages={pages}
+  skipButtonPosition="top-right"
+  skipButtonContainerStyle={{ top: insets.top + 12 }}
+  paginationContainerStyle={{
+    height: 60 + insets.bottom,
+    paddingBottom: insets.bottom,
+  }}
+/>;
+```
+
+For a flat background color, simply wrap the slider in a `SafeAreaView`. Both
+approaches require a `SafeAreaProvider` near the root of your app.

@@ -1,0 +1,94 @@
+---
+title: Persistence
+---
+
+# Persistence
+
+The library ships small, storage-agnostic helpers so you can show onboarding
+only once. They accept any object that implements the
+`getItem`/`setItem`/`removeItem` interface (for example
+[`@react-native-async-storage/async-storage`](https://github.com/react-native-async-storage/async-storage)),
+so no extra peer dependency is forced on you.
+
+## Quick start
+
+`createOnboardingStorage` binds a storage adapter once and returns ready-to-call
+helpers:
+
+```jsx
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { createOnboardingStorage } from 'react-native-app-onboard';
+
+const onboardingStorage = createOnboardingStorage(AsyncStorage);
+
+// On app launch:
+const seen = await onboardingStorage.hasCompleted();
+
+// When the user finishes onboarding:
+<Onboarding pages={pages} onDone={() => onboardingStorage.markComplete()} />;
+
+// To replay onboarding later:
+await onboardingStorage.reset();
+```
+
+## Standalone functions
+
+If you prefer to pass the storage explicitly, the standalone functions are also
+exported. All default to a namespaced key, which you can override with the
+optional second argument.
+
+```jsx
+import {
+  hasCompletedOnboarding,
+  markOnboardingComplete,
+  resetOnboarding,
+} from 'react-native-app-onboard';
+
+await hasCompletedOnboarding(AsyncStorage);
+await markOnboardingComplete(AsyncStorage);
+await resetOnboarding(AsyncStorage);
+
+// With a custom key:
+await hasCompletedOnboarding(AsyncStorage, '@myapp/onboarding-v2');
+```
+
+## Storage adapter
+
+Any object matching this interface works — AsyncStorage, an `expo-secure-store`
+wrapper, or an in-memory mock in tests:
+
+```typescript
+type OnboardingStorageAdapter = {
+  getItem: (key: string) => Promise<string | null>;
+  setItem: (key: string, value: string) => Promise<void>;
+  removeItem: (key: string) => Promise<void>;
+};
+```
+
+## Gating the onboarding screen
+
+A common pattern: check completion on launch and skip onboarding if it's already
+done.
+
+```jsx
+const [status, setStatus] = useState('loading');
+
+useEffect(() => {
+  onboardingStorage.hasCompleted().then((seen) =>
+    setStatus(seen ? 'done' : 'show')
+  );
+}, []);
+
+if (status === 'loading') return null;
+if (status === 'done') return <App />;
+
+return (
+  <Onboarding
+    pages={pages}
+    onDone={async () => {
+      await onboardingStorage.markComplete();
+      setStatus('done');
+    }}
+  />
+);
+```

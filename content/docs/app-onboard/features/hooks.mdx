@@ -37,19 +37,29 @@ const OnboardingControls = () => {
 | Value | Type | Description |
 |-------|------|-------------|
 | `currentPage` | `number` | Current page index |
-| `setCurrentPage` | `(page: number) => void` | Set current page |
+| `setCurrentPage` | `(page: number) => void` | Set current page **state only** — does not scroll. Use `nextPage`/`previousPage`/`scrollTo` to navigate. |
 | `scrollEnabled` | `boolean` | Scrolling enabled state |
 | `enableScroll` | `(enabled: boolean) => void` | Enable/disable scrolling |
 | `flatListRef` | `React.RefObject<FlatList>` | FlatList reference |
+| `setFlatListRef` | `(node: FlatList \| null) => void` | Callback ref for the FlatList (used internally; prefer `flatListRef` for reads) |
+| `width` | `number` | Resolved page width (`width` prop, or screen width when unset) |
 | `numberOfScreens` | `number` | Total screens count |
-| `nextPage` | `() => void` | Go to next page |
-| `scrollTo` | `(page: number) => void` | Scroll to page |
-| `progress` | `number` | Progress (0-1) |
+| `nextPage` | `(animated?: boolean) => void` | Go to next page |
+| `previousPage` | `(animated?: boolean) => void` | Go to previous page |
+| `scrollTo` | `(page: number, animated?: boolean) => void` | Scroll to page |
+| `progress` | `number` | Progress as a percentage (`0`–`100`) |
 | `isDone` | `boolean` | Onboarding complete |
+| `pauseAutoPlay` | `() => void` | Pause autoplay |
+| `resumeAutoPlay` | `() => void` | Resume autoplay |
+
+> **Note:** `progress` is a plain number from `0` to `100`, not an `Animated.Value` — use it directly (e.g. ``width: `${progress}%` ``).
 
 ## Examples
 
 ### Progress Indicator
+
+`progress` is a plain number (`0`–`100`), so you can use it directly as a
+percentage width:
 
 ```jsx
 const ProgressBar = () => {
@@ -57,21 +67,14 @@ const ProgressBar = () => {
 
   return (
     <View style={styles.progressContainer}>
-      <Animated.View
-        style={[
-          styles.progressBar,
-          {
-            width: progress.interpolate({
-              inputRange: [0, 1],
-              outputRange: ['0%', '100%'],
-            }),
-          },
-        ]}
-      />
+      <View style={[styles.progressBar, { width: `${progress}%` }]} />
     </View>
   );
 };
 ```
+
+> The component also ships a built-in progress bar — set
+> `paginationStyle="progress"`. See [Pagination](/app-onboard/features/pagination).
 
 ### Custom Navigation
 
@@ -116,28 +119,37 @@ const ScrollControls = () => {
 };
 ```
 
-### Progress-Based Content
+### Autoplay Controls
 
 ```jsx
-const DynamicContent = () => {
-  const { progress, currentPage } = useOnboarding();
-  
+const AutoplayControls = () => {
+  const { pauseAutoPlay, resumeAutoPlay } = useOnboarding();
+
   return (
-    <Animated.View
-      style={{
-        opacity: progress,
-        transform: [
-          {
-            translateY: progress.interpolate({
-              inputRange: [0, 1],
-              outputRange: [50, 0],
-            }),
-          },
-        ],
-      }}
-    >
-      <Text>Content for page {currentPage + 1}</Text>
-    </Animated.View>
+    <View style={styles.row}>
+      <Button title="Pause" onPress={pauseAutoPlay} />
+      <Button title="Resume" onPress={resumeAutoPlay} />
+    </View>
+  );
+};
+```
+
+### Previous / Next Navigation
+
+```jsx
+const Navigation = () => {
+  const { previousPage, nextPage, currentPage, numberOfScreens } =
+    useOnboarding();
+
+  return (
+    <View style={styles.row}>
+      <Button title="Back" onPress={previousPage} disabled={currentPage === 0} />
+      <Button
+        title="Next"
+        onPress={nextPage}
+        disabled={currentPage === numberOfScreens - 1}
+      />
+    </View>
   );
 };
 ```

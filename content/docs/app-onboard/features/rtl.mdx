@@ -1,0 +1,37 @@
+---
+title: RTL Support
+---
+
+# RTL Support
+
+The slider supports right-to-left layouts for languages like Arabic and Hebrew.
+
+<a href="https://snack.expo.dev/@lekgwaraj/react-native-app-onboard-rtl?platform=ios">
+  <img src="https://img.shields.io/badge/Try%20it%20on-Expo%20Snack-4630EB.svg?style=for-the-badge&logo=expo&labelColor=FFF&logoColor=000" alt="Try it on Expo Snack"/>
+</a>
+
+## Follows the device direction
+
+By default the slider follows the device writing direction
+(`I18nManager.isRTL`), so apps localized for RTL languages get a right-to-left
+onboarding flow automatically — the footer buttons and pagination use
+direction-aware layout.
+
+## Forcing a direction
+
+Force a direction independent of the device with the `rtl` prop:
+
+```jsx
+<Onboarding pages={pages} rtl />
+```
+
+When the requested direction differs from the device direction, the slider
+(pages, dots, and progress bar) is mirrored so swiping and the indicators stay
+consistent.
+
+## Custom children
+
+Forced mirroring applies to the declarative `pages` API. When you provide custom
+children, RTL follows the device direction — lay out your own screens with
+logical `start`/`end` styles (rather than `left`/`right`) so they adapt
+automatically.
